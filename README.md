@@ -1,3 +1,7 @@
+<div>
+    <p><a href="https://github.com/vlambo3/Proxy---VaccinationManagementSystem"><img src="https://github.com/vlambo3/Proxy---VaccinationManagementSystem/workflows/Test/badge.svg"></a>
+</div>
+
 # Vaccination Management System
 
 ## Overview
