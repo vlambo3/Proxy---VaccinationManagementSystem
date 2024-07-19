@@ -63,6 +63,9 @@ Unit tests are used to verify the functionality and correctness of the `ProxyVac
     ```sh
     mvn test
     ```
+### UML Diagram
+
+![uml](https://raw.githubusercontent.com/vlambo3/Proxy---VaccinationManagementSystem/proxy/images/uml.png)
 
 ### Conclusion
 
