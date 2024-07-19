@@ -1,68 +1,75 @@
 # Vaccination Management System
 
-## Overview
+## Proxy Pattern Implementation
 
-This project implements a basic vaccination management system. It features a `Person` class representing individuals scheduled for vaccination and provides functionality to record and validate the vaccination process. The system ensures that individuals can only be vaccinated on or after their assigned vaccination date.
+This project demonstrates the application of the Proxy Design Pattern in a Vaccination Management System. The Proxy Pattern is used to control access to an object and provide additional functionality, such as validation, before delegating the actual work to the real object.
 
-## Features
+### How the Proxy Pattern is Applied
 
-- **Person Class**: Represents a person with details such as name, last name, identification number, assigned vaccination date, and vaccination name.
-- **Vaccination Process**: Validates that vaccination occurs only on or after the assigned date. It throws an exception if the vaccination date is invalid.
-- **Output**: Confirms successful vaccination with a message that includes the identification number, vaccination date, and vaccination name.
+In this system, the Proxy Pattern is implemented to manage access to the `Vaccination` class. Here's how it's used:
 
-## Proxy Pattern
+- **Proxy Class (`ProxyVaccination`)**: Acts as an intermediary between the client and the `Vaccination` class. It ensures that only valid requests (i.e., requests with dates that are equal to or after the assigned date) are forwarded to the `Vaccination` class.
+  
+- **Real Object (`Vaccination`)**: Contains the actual logic for performing the vaccination. The `Vaccination` class is only accessed through the `ProxyVaccination`, which handles the validation of the request.
 
-In this repository, the Proxy pattern is used to control access to the vaccination process, ensuring that the date of vaccination is valid before proceeding. The implementation is located in the `proxy` branch. 
+The Proxy Pattern is particularly suited for this scenario because it allows for the implementation of additional validation (i.e., checking if the current date is valid for vaccination) without modifying the core functionality of the `Vaccination` class. This separation of concerns ensures that the validation logic is centralized and easily manageable.
 
-### Proxy Pattern Details
+### Classes Overview
 
-- **Proxy Class**: Acts as an intermediary between the client and the real object, adding additional checks or controls.
-- **Real Object**: Handles the actual vaccination process.
-- **Control Logic**: Ensures that vaccinations are only processed if the date is equal to or after the assigned date.
+1. **`Person`**:
+   - Represents an individual who is to be vaccinated.
+   - Contains attributes such as `name`, `lastname`, `identification`, `assignedDate`, and `vaccinationName`.
 
-## How to Run
+2. **`IVaccinationCenter`**:
+   - An interface that defines the contract for the vaccination process.
+   - Includes the method `vaccinate(Person person)` which is implemented by both `ProxyVaccination` and `Vaccination` classes.
 
-1. **Clone the Repository**:
-   ```sh
-   git clone https://github.com/vlambo3/Proxy---VaccinationManagementSystem
-   cd Proxy---VaccinationManagementSystem
-   ```
+3. **`ProxyVaccination`**:
+   - Implements the `IVaccinationCenter` interface.
+   - Contains a `Vaccination` instance to which it delegates the vaccination process.
+   - Validates that the current date is on or after the assigned date before allowing the vaccination process to proceed.
 
-2. **Checkout the Desired Branch**:
-    - For the basic implementation without the Proxy pattern:
-        ```sh
-        git checkout main
-        ```
-    - For the implementation with the Proxy pattern:
-        ```sh
-        git checkout proxy
-        ```
+4. **`Vaccination`**:
+   - Implements the `IVaccinationCenter` interface.
+   - Contains the actual logic for vaccinating a person and returning a confirmation message.
 
-3. **Build and Run the Project**:
-   Ensure you have Java and Maven installed. Navigate to the project directory and execute:
+### Unit Testing with JUnit 5
+
+Unit tests are used to verify the functionality and correctness of the `ProxyVaccination` class and its interaction with the `Vaccination` class. The tests are written using JUnit 5 and cover various scenarios:
+
+1. **`testVaccinationValidDate`**:
+   - Verifies that a person can be vaccinated on the assigned date.
+
+2. **`testVaccinationValidDateAfterAssigned`**:
+   - Verifies that a person can be vaccinated after the assigned date.
+
+3. **`testVaccinationInvalidDateBeforeAssigned`**:
+   - Ensures that a person cannot be vaccinated before the assigned date.
+
+### How to Run Tests
+
+1. **Clone the repository**:
+    ```sh
+    git https://github.com/vlambo3/Proxy---VaccinationManagementSystem
+    cd Proxy-Vaccination-Management-System
+    ```
+
+2. **Build the project**:
     ```sh
     mvn clean install
     ```
 
-4. **Run Tests**:
-   Execute the tests to ensure the correctness of the implementation.
+3. **Run tests**:
     ```sh
     mvn test
     ```
 
-## Tests
+### Conclusion
 
-JUnit 5 tests are used to ensure the quality of the `Person` class and its `vaccinate()` method. These tests validate:
+The Proxy Pattern provides an elegant solution for managing access and adding validation logic to the `Vaccination` process. By using a proxy, we maintain separation of concerns and ensure that the real `Vaccination` class focuses solely on the vaccination logic. JUnit 5 tests are used to ensure the correctness of the implementation and validate that the system behaves as expected under various scenarios.
 
-- Successful vaccination on or after the assigned date.
-- Handling of invalid dates and correct exception throwing.
-- Output verification (console printing).
 
-## Conclusion
-
-This project demonstrates both the basic vaccination management system and an enhanced version using the Proxy pattern. By comparing the two branches, developers can understand the application of the Proxy pattern and how it adds an additional layer of control to the system. The use of JUnit 5 tests ensures that the functionality is robust and reliable.
-
-## Contact
+### Contact
 
 If you have any questions or need assistance with the project, feel free to contact me:
 
